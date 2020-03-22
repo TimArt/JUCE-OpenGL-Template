@@ -68,11 +68,10 @@ void OpenGLComponent::newOpenGLContextCreated()
                                                     3 * sizeof (GLfloat), NULL);
     openGLContext.extensions.glEnableVertexAttribArray (0);
     
-    
-    // OpenGL styling preferences
-    glEnable (GL_BLEND); // Enable alpha blending, allowing for transparency of objects
-    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Show wireframe
+     // OpenGL styling preferences
+//    glEnable (GL_BLEND); // Enable alpha blending, allowing for transparency of objects
+//    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Show wireframe
 }
 
 void OpenGLComponent::openGLContextClosing()
@@ -158,18 +157,50 @@ std::vector<Vector3D<GLfloat>> OpenGLComponent::generateCubeVertices()
     std::vector<Vector3D<GLfloat>> vertices;
     
     const float offset = 0.5f;
+    
+    // For every face, there will be one dimension which has an unchanged value
+    int unchangedDimensionIndex = 0;
+    
+    // Each point will either have a positive or negative value
+    bool isDimensionPositive[3] { true, true, true };
+    
+    // Iterate through all faces
     for (int face = 0; face < 6; face++)
     {
-        vertices.push_back ({  });
+        // Which dimension's turn is it to be swapped for the following point?
+        int dimensionTurn = (unchangedDimensionIndex + 1) % 3;
+        
+        // Iterate through both triangles in a face
+        for (int tri = 0; tri < 2; tri++)
+        {
+            // Iterate through all 3 points of a triangle
+            for (int point = 0; point < 3; point++)
+            {
+                // Create a vertex
+                vertices.push_back ({ isDimensionPositive[0] ? offset : -offset,
+                                      isDimensionPositive[1] ? offset : -offset,
+                                      isDimensionPositive[2] ? offset : -offset });
+                
+                // If not the 3rd vertex, swap the magnitude of the other dimension
+                if (point != 2)
+                {
+                    isDimensionPositive[dimensionTurn] = !isDimensionPositive[dimensionTurn];
+                    dimensionTurn = (dimensionTurn + 1) % 3;
+                    if (dimensionTurn == unchangedDimensionIndex)
+                        dimensionTurn = (dimensionTurn + 1) % 3;
+                }
+            }
+        }
+        
+        unchangedDimensionIndex = (unchangedDimensionIndex + 1) % 3;
+        
+        // After first 3 faces, invert the magnitude of all dimensions
+        if (face == 2)
+            for (int i = 0; i < 3; i++)
+                isDimensionPositive[i] = !isDimensionPositive[i];
+        
     }
-    return { { -0.5f, -0.5f, -0.5f }, { 0.5f, -0.5f, -0.5f }, { 0.5f, 0.5f, -0.5f }, { -0.5f, 0.5f, -0.5f },
-             { 0.5f, -0.5f, -0.5f }, { 0.5f, -0.5f, 0.5f }, { 0.5f, 0.5f, 0.5f }, { 0.5f, 0.5f, -0.5f },
-             { 0.5f, -0.5f, 0.5f }, { -0.5f, -0.5f, 0.5f }, { -0.5f, 0.5f, 0.5f }, { 0.5f, 0.5f, 0.5f },
-             { -0.5f, -0.5f, 0.5f }, { -0.5f, -0.5f, -0.5f }, { -0.5f, 0.5f, -0.5f }, { -0.5f, 0.5f, 0.5f },
-             { 0.5f, 0.5f, 0.5f }, { -0.5f, 0.5f, 0.5f }, { -0.5f, 0.5f, -0.5f }, { 0.5f, 0.5f, -0.5f }
-    
-    
-    };
+
     return vertices;
 }
 
