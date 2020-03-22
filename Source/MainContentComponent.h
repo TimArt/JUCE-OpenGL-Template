@@ -61,7 +61,9 @@ public:
         // Stylin'
         getLookAndFeel().setColour (ResizableWindow::backgroundColourId, Colour (0xFF292a30));
     
+        // Enable rendering
         openGLComponent.setRenderingActive (true);
+        
         addAndMakeVisible (openGLComponent);
         setSize (800, 600);
     }

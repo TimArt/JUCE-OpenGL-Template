@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "OpenGLBasicUtils.hpp"
+#include "ShapeVertices.hpp"
 
 /** A custom JUCE Component which renders using OpenGL. You can use this class
     as a template for any Component you want to create which renders OpenGL inside
@@ -45,54 +46,24 @@ public:
         reserved for the JUCE Message Thread, this callback allows the message
         thread to handle the update. */
     void handleAsyncUpdate() override;
-    
-    
-    std::vector<Vector3D<GLfloat>> generateTriangleVertices();
-    std::vector<Vector3D<GLfloat>> generateCubeVertices();
 
 private:
     
     /** Attempts to compile the OpenGL program at runtime and setup OpenGL variables. */
     void compileOpenGLShaderProgram();
     
-    
-    /** Calculates and returns the Projection Matrix.
-     */
-    void refreshProjectionMatrix()
-    {
-        float w = 1.0f / (0.5f + 0.1f);
-        float h = w * getLocalBounds().toFloat().getAspectRatio (false);
-        projectionMatrix = Matrix3D<GLfloat>::fromFrustum (-w, w, -h, h, 4.0f, 30.0f);
-    }
-    
-    /** Calculates and returns the View Matrix.
-     */
-    void refreshViewMatrix()
-    {
-        Matrix3D<GLfloat> scale (AffineTransform::scale (3.0f));
-        Matrix3D<GLfloat> rotate = draggableOrientation.getRotationMatrix();
-        Matrix3D<GLfloat> translate (Vector3D<GLfloat> (0.0f, 0.0f, -10.0f));
-        
-        viewMatrix = rotate * scale * translate;
-    }
-    
+    Matrix3D<GLfloat> calculateProjectionMatrix() const;
+    Matrix3D<GLfloat> calculateViewMatrix() const;
 
     // OpenGL Variables
     OpenGLContext openGLContext;
-    GLuint VBO, VAO; /* EBO */
     std::unique_ptr<OpenGLShaderProgram> shaderProgram;
-    std::unique_ptr<Uniforms> uniforms;
     
-    std::vector<Vector3D<GLfloat>> vertices;
-
-    Matrix3D<GLfloat> projectionMatrix;
-    Matrix3D<GLfloat> viewMatrix;
+    OpenGLUtil::UniformWrapper projectionMatrix { "projectionMatrix" };
+    OpenGLUtil::UniformWrapper viewMatrix {"viewMatrix" };
     
-//    GLfloat vertices[9] = {
-//        -0.5f, -0.5f, 0.0f,
-//         0.5f, -0.5f, 0.0f,
-//         0.0f,  0.5f, 0.0f
-//    };
+    GLuint VBO, VAO; /* EBO */
+    std::vector<Vector3D<GLfloat>> vertices = ShapeVertices::generateTriangle();
     
     // GUI Mouse Drag Interaction
     Draggable3DOrientation draggableOrientation;

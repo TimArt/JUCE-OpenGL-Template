@@ -19,6 +19,61 @@
 
 #pragma once
 
+namespace OpenGLUtil
+{
+
+static OpenGLShaderProgram::Uniform* createUniform (OpenGLContext& context,
+                                                    OpenGLShaderProgram& shaderProgram,
+                                                    const String& uniformName)
+{
+    if (context.extensions.glGetUniformLocation (shaderProgram.getProgramID(), uniformName.toRawUTF8()) < 0)
+        return nullptr;
+
+    return new OpenGLShaderProgram::Uniform (shaderProgram, uniformName.toRawUTF8());
+}
+
+/** A class that makes it easier to work with a OpenGLShaderProgram::Uniform.
+    It permanently associates a particular name with the uniform which is usually
+    how Uniform objects tend to be used. This makes using a Uniform a bit cleaner
+    instead of having the rewrite name strings in multiple places.
+ 
+    I hope functionality such as this gets integrated into the juce::Uniform class
+    in the future,
+ */
+class UniformWrapper
+{
+public:
+    UniformWrapper (const String & uniformName)
+    {
+        this->uniformName = uniformName;
+    }
+    
+    operator bool() const noexcept
+    {
+        return uniform.get() != nullptr;
+    }
+    
+    OpenGLShaderProgram::Uniform * operator->() const noexcept
+    {
+        return uniform.get();
+    }
+    
+    void connectToShaderProgram (OpenGLContext & context, OpenGLShaderProgram & shaderProgram)
+    {
+        uniform.reset (createUniform (context, shaderProgram, uniformName));
+    }
+    
+    void disconnectFromShaderProgram()
+    {
+        uniform.reset();
+    }
+    
+private:
+    String uniformName;
+    std::unique_ptr<OpenGLShaderProgram::Uniform> uniform;
+
+};
+
 //==============================================================================
 
 /** Vertex data to be passed to the shaders.
@@ -97,17 +152,21 @@ private:
 
 //==============================================================================
 // This class just manages the uniform values that the demo shaders use.
-struct Uniforms
+/*
+class Uniforms
 {
+public:
     Uniforms (OpenGLContext& context, OpenGLShaderProgram& shaderProgram)
     {
         projectionMatrix.reset (createUniform (context, shaderProgram, "projectionMatrix"));
         viewMatrix.reset (createUniform (context, shaderProgram, "viewMatrix"));
     }
 
-    std::unique_ptr<OpenGLShaderProgram::Uniform> projectionMatrix, viewMatrix;
-
 private:
+
+    std::map<std::string, std::unique_ptr<OpenGLShaderProgram::Uniform>> uniforms;
+    
+    
     static OpenGLShaderProgram::Uniform* createUniform (OpenGLContext& context,
                                                         OpenGLShaderProgram& shaderProgram,
                                                         const String& uniformName)
@@ -117,4 +176,6 @@ private:
 
         return new OpenGLShaderProgram::Uniform (shaderProgram, uniformName.toRawUTF8());
     }
-};
+};*/
+
+} // OpenGLUtil

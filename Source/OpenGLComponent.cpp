@@ -25,9 +25,6 @@ OpenGLComponent::OpenGLComponent()
     addAndMakeVisible (openGLStatusLabel);
     openGLStatusLabel.setJustificationType (Justification::topLeft);
     openGLStatusLabel.setFont (Font (14.0f));
-    
-    
-    vertices = generateCubeVertices();
 }
 
 OpenGLComponent::~OpenGLComponent()
@@ -74,11 +71,7 @@ void OpenGLComponent::newOpenGLContextCreated()
 //    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Show wireframe
 }
 
-void OpenGLComponent::openGLContextClosing()
-{
-    shaderProgram.reset();
-    uniforms.reset();
-}
+void OpenGLComponent::openGLContextClosing() {}
 
 void OpenGLComponent::renderOpenGL()
 {
@@ -95,17 +88,10 @@ void OpenGLComponent::renderOpenGL()
     shaderProgram->use();
 
     // Setup the Uniforms for use in the Shader
-    if (uniforms->projectionMatrix != nullptr)
-    {
-        refreshProjectionMatrix();
-        uniforms->projectionMatrix->setMatrix4 (projectionMatrix.mat, 1, false);
-    }
-
-    if (uniforms->viewMatrix != nullptr)
-    {
-        refreshViewMatrix();
-        uniforms->viewMatrix->setMatrix4 (viewMatrix.mat, 1, false);
-    }
+    if (projectionMatrix)
+        projectionMatrix->setMatrix4 (calculateProjectionMatrix().mat, 1, false);
+    if (viewMatrix)
+        viewMatrix->setMatrix4 (calculateViewMatrix().mat, 1, false);
     
     // Draw Vertices
     openGLContext.extensions.glBindVertexArray (VAO);
@@ -147,63 +133,6 @@ void OpenGLComponent::handleAsyncUpdate()
     openGLStatusLabel.setText (openGLStatusText, dontSendNotification);
 }
 
-std::vector<Vector3D<GLfloat>> OpenGLComponent::generateTriangleVertices()
-{
-    return { { -0.5f, -0.5f, 0.0f }, { 0.5f, -0.5f, 0.0f }, { 0.0f,  0.5f, 0.0f } };
-}
-
-std::vector<Vector3D<GLfloat>> OpenGLComponent::generateCubeVertices()
-{
-    std::vector<Vector3D<GLfloat>> vertices;
-    
-    const float offset = 0.5f;
-    
-    // For every face, there will be one dimension which has an unchanged value
-    int unchangedDimensionIndex = 0;
-    
-    // Each point will either have a positive or negative value
-    bool isDimensionPositive[3] { true, true, true };
-    
-    // Iterate through all faces
-    for (int face = 0; face < 6; face++)
-    {
-        // Which dimension's turn is it to be swapped for the following point?
-        int dimensionTurn = (unchangedDimensionIndex + 1) % 3;
-        
-        // Iterate through both triangles in a face
-        for (int tri = 0; tri < 2; tri++)
-        {
-            // Iterate through all 3 points of a triangle
-            for (int point = 0; point < 3; point++)
-            {
-                // Create a vertex
-                vertices.push_back ({ isDimensionPositive[0] ? offset : -offset,
-                                      isDimensionPositive[1] ? offset : -offset,
-                                      isDimensionPositive[2] ? offset : -offset });
-                
-                // If not the 3rd vertex, swap the magnitude of the other dimension
-                if (point != 2)
-                {
-                    isDimensionPositive[dimensionTurn] = !isDimensionPositive[dimensionTurn];
-                    dimensionTurn = (dimensionTurn + 1) % 3;
-                    if (dimensionTurn == unchangedDimensionIndex)
-                        dimensionTurn = (dimensionTurn + 1) % 3;
-                }
-            }
-        }
-        
-        unchangedDimensionIndex = (unchangedDimensionIndex + 1) % 3;
-        
-        // After first 3 faces, invert the magnitude of all dimensions
-        if (face == 2)
-            for (int i = 0; i < 3; i++)
-                isDimensionPositive[i] = !isDimensionPositive[i];
-        
-    }
-
-    return vertices;
-}
-
 void OpenGLComponent::compileOpenGLShaderProgram()
 {
     std::unique_ptr<OpenGLShaderProgram> shaderProgramAttempt
@@ -214,12 +143,14 @@ void OpenGLComponent::compileOpenGLShaderProgram()
         && shaderProgramAttempt->addFragmentShader ({ BinaryData::BasicFragment_glsl })
         && shaderProgramAttempt->link())
     {
-        uniforms.reset (nullptr);
+        projectionMatrix.disconnectFromShaderProgram();
+        viewMatrix.disconnectFromShaderProgram();
         
         shaderProgram.reset (shaderProgramAttempt.release());
         shaderProgram->use();
         
-        uniforms = std::make_unique<Uniforms> (openGLContext, *shaderProgram);
+        projectionMatrix.connectToShaderProgram (openGLContext, *shaderProgram);
+        viewMatrix.connectToShaderProgram (openGLContext, *shaderProgram);
         
         openGLStatusText = "GLSL: v" + String (OpenGLShaderProgram::getLanguageVersion(), 2);
     }
@@ -229,4 +160,21 @@ void OpenGLComponent::compileOpenGLShaderProgram()
     }
 
     triggerAsyncUpdate();
+}
+
+
+Matrix3D<GLfloat> OpenGLComponent::calculateProjectionMatrix() const
+{
+    float w = 1.0f / (0.5f + 0.1f);
+    float h = w * getLocalBounds().toFloat().getAspectRatio (false);
+    return Matrix3D<GLfloat>::fromFrustum (-w, w, -h, h, 4.0f, 30.0f);
+}
+
+
+Matrix3D<GLfloat> OpenGLComponent::calculateViewMatrix() const
+{
+    Matrix3D<GLfloat> scale (AffineTransform::scale (3.0f));
+    Matrix3D<GLfloat> rotate = draggableOrientation.getRotationMatrix();
+    Matrix3D<GLfloat> translate (Vector3D<GLfloat> (0.0f, 0.0f, -10.0f));
+    return rotate * scale * translate;
 }
