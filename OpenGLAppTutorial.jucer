@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<JUCERPROJECT name="OpenGLAppTutorial" companyName="JUCE" version="1.0.0" userNotes="Explores the OpenGL features."
+              companyWebsite="http://juce.com" defines="" projectType="guiapp"
+              id="mRAI3Y" jucerVersion="5.4.7">
+  <MAINGROUP id="fC7mo8" name="OpenGLAppTutorial">
+    <GROUP id="{18DC88CC-D1EE-CEF6-63CF-5BD1C6F2004C}" name="Resources">
+      <GROUP id="{7D94A52D-6BA3-5B2A-7BDC-F3CCA158AB84}" name="OpenGLShaderPrograms">
+        <FILE id="YTMTEk" name="BasicFragment.glsl" compile="0" resource="1"
+              file="Resources/OpenGLShaderPrograms/BasicFragment.glsl"/>
+        <FILE id="GEBjWS" name="BasicVertex.glsl" compile="0" resource="1"
+              file="Resources/OpenGLShaderPrograms/BasicVertex.glsl"/>
+      </GROUP>
+      <FILE id="CrX0a5" name="teapot.obj" compile="0" resource="1" file="Resources/teapot.obj"/>
+    </GROUP>
+    <GROUP id="{18E61D1A-30CD-C853-0B83-004B025D0D55}" name="Source">
+      <FILE id="wVneJS" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="iXaWUz" name="MainContentComponent.h" compile="0" resource="0"
+            file="Source/MainContentComponent.h"/>
+      <FILE id="kEzo1W" name="OpenGLBasicUtils.hpp" compile="0" resource="0"
+            file="Source/OpenGLBasicUtils.hpp"/>
+      <FILE id="JF50ZI" name="OpenGLComponent.cpp" compile="1" resource="0"
+            file="Source/OpenGLComponent.cpp"/>
+      <FILE id="ybZayQ" name="OpenGLComponent.hpp" compile="0" resource="0"
+            file="Source/OpenGLComponent.hpp"/>
+      <FILE id="PUwR7Z" name="Shape.hpp" compile="0" resource="0" file="Source/Shape.hpp"/>
+      <FILE id="DIVcbx" name="TeapotObjectReader.hpp" compile="0" resource="0"
+            file="Source/TeapotObjectReader.hpp"/>
+      <FILE id="OLACT6" name="WavefrontObjFile.hpp" compile="0" resource="0"
+            file="Source/WavefrontObjFile.hpp"/>
+    </GROUP>
+  </MAINGROUP>
+  <MODULES>
+    <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_gui_extra" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_opengl" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+  </MODULES>
+  <EXPORTFORMATS>
+    <XCODE_MAC targetFolder="Builds/MacOSX">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OpenGLAppTutorial"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OpenGLAppTutorial"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path=""/>
+        <MODULEPATH id="juce_data_structures" path=""/>
+        <MODULEPATH id="juce_events" path=""/>
+        <MODULEPATH id="juce_graphics" path=""/>
+        <MODULEPATH id="juce_gui_basics" path=""/>
+        <MODULEPATH id="juce_gui_extra" path=""/>
+        <MODULEPATH id="juce_opengl" path=""/>
+      </MODULEPATHS>
+    </XCODE_MAC>
+    <VS2017 targetFolder="Builds/VisualStudio2017">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OpenGLAppTutorial"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OpenGLAppTutorial"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path=""/>
+        <MODULEPATH id="juce_data_structures" path=""/>
+        <MODULEPATH id="juce_events" path=""/>
+        <MODULEPATH id="juce_graphics" path=""/>
+        <MODULEPATH id="juce_gui_basics" path=""/>
+        <MODULEPATH id="juce_gui_extra" path=""/>
+        <MODULEPATH id="juce_opengl" path=""/>
+      </MODULEPATHS>
+    </VS2017>
+    <XCODE_IPHONE targetFolder="Builds/iOS">
+      <CONFIGURATIONS>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OpenGLAppTutorial"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OpenGLAppTutorial"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_core" path=""/>
+        <MODULEPATH id="juce_data_structures" path=""/>
+        <MODULEPATH id="juce_events" path=""/>
+        <MODULEPATH id="juce_graphics" path=""/>
+        <MODULEPATH id="juce_gui_basics" path=""/>
+        <MODULEPATH id="juce_gui_extra" path=""/>
+        <MODULEPATH id="juce_opengl" path=""/>
+      </MODULEPATHS>
+    </XCODE_IPHONE>
+  </EXPORTFORMATS>
+  <JUCEOPTIONS/>
+  <LIVE_SETTINGS>
+    <OSX/>
+  </LIVE_SETTINGS>
+</JUCERPROJECT>
