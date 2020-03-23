@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT name="OpenGLAppTutorial" companyName="JUCE" version="1.0.0" userNotes="Explores the OpenGL features."
-              companyWebsite="http://juce.com" defines="" projectType="guiapp"
-              id="mRAI3Y" jucerVersion="5.4.7">
-  <MAINGROUP id="fC7mo8" name="OpenGLAppTutorial">
+<JUCERPROJECT name="OpenGL 3D App Template" version="1.0.0" defines="" projectType="guiapp"
+              id="mRAI3Y" jucerVersion="5.4.7" cppLanguageStandard="17">
+  <MAINGROUP id="fC7mo8" name="OpenGL 3D App Template">
     <GROUP id="{18DC88CC-D1EE-CEF6-63CF-5BD1C6F2004C}" name="Resources">
       <GROUP id="{7D94A52D-6BA3-5B2A-7BDC-F3CCA158AB84}" name="OpenGLShaderPrograms">
         <FILE id="YTMTEk" name="BasicFragment.glsl" compile="0" resource="1"
@@ -13,22 +12,22 @@
       </GROUP>
       <FILE id="CrX0a5" name="teapot.obj" compile="0" resource="1" file="Resources/teapot.obj"/>
     </GROUP>
-    <GROUP id="{18E61D1A-30CD-C853-0B83-004B025D0D55}" name="Source">
-      <GROUP id="{0DC217DD-A629-C3B6-6191-DBA0B9877C7F}" name="OpenGLUtil">
-        <FILE id="JXRPuo" name="OpenGLUtil.hpp" compile="0" resource="0" file="Source/OpenGLUtil/OpenGLUtil.hpp"/>
-        <FILE id="zxzjAy" name="WavefrontObjFile.hpp" compile="0" resource="0"
+    <GROUP id="{00668A9B-CAD9-31C8-50C1-A2B82CD8C252}" name="Source">
+      <GROUP id="{FC60A5A8-08D5-7FE1-118D-E20B65CCB606}" name="OpenGLUtil">
+        <FILE id="eXmwSY" name="OpenGLUtil.hpp" compile="0" resource="0" file="Source/OpenGLUtil/OpenGLUtil.hpp"/>
+        <FILE id="w68WBI" name="WavefrontObjFile.hpp" compile="0" resource="0"
               file="Source/OpenGLUtil/WavefrontObjFile.hpp"/>
-        <FILE id="w6gFGl" name="WavefrontShape.hpp" compile="0" resource="0"
+        <FILE id="xzZUlR" name="WavefrontShape.hpp" compile="0" resource="0"
               file="Source/OpenGLUtil/WavefrontShape.hpp"/>
       </GROUP>
-      <FILE id="UKg6bZ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="ub10PP" name="MainContentComponent.h" compile="0" resource="0"
-            file="Source/MainContentComponent.h"/>
-      <FILE id="zCzlGq" name="OpenGLComponent.cpp" compile="1" resource="0"
+      <FILE id="StmfZE" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="go9Lhq" name="MainContentComponent.hpp" compile="0" resource="0"
+            file="Source/MainContentComponent.hpp"/>
+      <FILE id="pfORs7" name="OpenGLComponent.cpp" compile="1" resource="0"
             file="Source/OpenGLComponent.cpp"/>
-      <FILE id="MfxCkU" name="OpenGLComponent.hpp" compile="0" resource="0"
+      <FILE id="sJkbmX" name="OpenGLComponent.hpp" compile="0" resource="0"
             file="Source/OpenGLComponent.hpp"/>
-      <FILE id="OoEXdT" name="ShapeVertices.hpp" compile="0" resource="0"
+      <FILE id="wIF1qz" name="ShapeVertices.hpp" compile="0" resource="0"
             file="Source/ShapeVertices.hpp"/>
     </GROUP>
   </MAINGROUP>

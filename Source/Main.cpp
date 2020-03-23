@@ -15,10 +15,10 @@ public:
     //==============================================================================
     Application() {}
 
-    const String getApplicationName() override       { return "OpenGLAppTutorial"; }
+    const String getApplicationName() override       { return "OpenGL3DAppTemplate"; }
     const String getApplicationVersion() override    { return "1.0.0"; }
 
-    void initialise (const String&) override         { mainWindow.reset (new MainWindow ("OpenGLAppTutorial", new MainContentComponent(), *this)); }
+    void initialise (const String&) override         { mainWindow.reset (new MainWindow ("OpenGL3DAppTemplate", new MainContentComponent(), *this)); }
     void shutdown() override                         { mainWindow = nullptr; }
 
 private:
