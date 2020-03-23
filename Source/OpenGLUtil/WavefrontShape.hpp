@@ -18,6 +18,7 @@
 */
 
 #pragma once
+
 #include "WavefrontObjFile.hpp"
 #include "OpenGLBasicUtils.hpp"
 

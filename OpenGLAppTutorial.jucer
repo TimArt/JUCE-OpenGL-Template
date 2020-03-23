@@ -14,20 +14,22 @@
       <FILE id="CrX0a5" name="teapot.obj" compile="0" resource="1" file="Resources/teapot.obj"/>
     </GROUP>
     <GROUP id="{18E61D1A-30CD-C853-0B83-004B025D0D55}" name="Source">
-      <FILE id="wVneJS" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="iXaWUz" name="MainContentComponent.h" compile="0" resource="0"
+      <GROUP id="{0DC217DD-A629-C3B6-6191-DBA0B9877C7F}" name="OpenGLUtil">
+        <FILE id="JXRPuo" name="OpenGLUtil.hpp" compile="0" resource="0" file="Source/OpenGLUtil/OpenGLUtil.hpp"/>
+        <FILE id="zxzjAy" name="WavefrontObjFile.hpp" compile="0" resource="0"
+              file="Source/OpenGLUtil/WavefrontObjFile.hpp"/>
+        <FILE id="w6gFGl" name="WavefrontShape.hpp" compile="0" resource="0"
+              file="Source/OpenGLUtil/WavefrontShape.hpp"/>
+      </GROUP>
+      <FILE id="UKg6bZ" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="ub10PP" name="MainContentComponent.h" compile="0" resource="0"
             file="Source/MainContentComponent.h"/>
-      <FILE id="kEzo1W" name="OpenGLBasicUtils.hpp" compile="0" resource="0"
-            file="Source/OpenGLBasicUtils.hpp"/>
-      <FILE id="JF50ZI" name="OpenGLComponent.cpp" compile="1" resource="0"
+      <FILE id="zCzlGq" name="OpenGLComponent.cpp" compile="1" resource="0"
             file="Source/OpenGLComponent.cpp"/>
-      <FILE id="ybZayQ" name="OpenGLComponent.hpp" compile="0" resource="0"
+      <FILE id="MfxCkU" name="OpenGLComponent.hpp" compile="0" resource="0"
             file="Source/OpenGLComponent.hpp"/>
-      <FILE id="PUwR7Z" name="Shape.hpp" compile="0" resource="0" file="Source/Shape.hpp"/>
-      <FILE id="DIVcbx" name="TeapotObjectReader.hpp" compile="0" resource="0"
-            file="Source/TeapotObjectReader.hpp"/>
-      <FILE id="OLACT6" name="WavefrontObjFile.hpp" compile="0" resource="0"
-            file="Source/WavefrontObjFile.hpp"/>
+      <FILE id="OoEXdT" name="ShapeVertices.hpp" compile="0" resource="0"
+            file="Source/ShapeVertices.hpp"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>

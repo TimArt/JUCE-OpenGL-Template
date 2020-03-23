@@ -9,7 +9,7 @@
 #pragma once
 
 #include <JuceHeader.h>
-#include "OpenGLBasicUtils.hpp"
+#include "OpenGLUtil/OpenGLUtil.hpp"
 #include "ShapeVertices.hpp"
 
 /** A custom JUCE Component which renders using OpenGL. You can use this class
@@ -62,8 +62,8 @@ private:
     OpenGLUtil::UniformWrapper projectionMatrix { "projectionMatrix" };
     OpenGLUtil::UniformWrapper viewMatrix {"viewMatrix" };
     
-    GLuint VBO, VAO; /* EBO */
-    std::vector<Vector3D<GLfloat>> vertices = ShapeVertices::generateTriangle();
+    GLuint VAO, VBO;
+    std::vector<Vector3D<GLfloat>> vertices;
     
     // GUI Mouse Drag Interaction
     Draggable3DOrientation draggableOrientation;
@@ -71,6 +71,5 @@ private:
     // GUI overlay status text
     String openGLStatusText;
     Label openGLStatusLabel;
-
 };
 

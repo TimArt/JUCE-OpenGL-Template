@@ -36,7 +36,7 @@ OpenGLComponent::~OpenGLComponent()
 void OpenGLComponent::setRenderingActive (bool shouldContinuouslyRender)
 {
     openGLContext.setContinuousRepainting (shouldContinuouslyRender);
-    openGLContext.setComponentPaintingEnabled (shouldContinuouslyRender);
+    // openGLContext.setComponentPaintingEnabled (shouldContinuouslyRender);
 }
 
 // OpenGLRenderer Callbacks ================================================
@@ -44,34 +44,42 @@ void OpenGLComponent::newOpenGLContextCreated()
 {
     compileOpenGLShaderProgram();
     
-    // Generate vertex objects
-    openGLContext.extensions.glGenBuffers (1, &VBO); // Vertex Buffer Object
+    vertices = ShapeVertices::generateTriangle(); // Setup vertices
+    
+    // Generate opengl vertex objects ==========================================
     openGLContext.extensions.glGenVertexArrays(1, &VAO); // Vertex Array Object
+    openGLContext.extensions.glGenBuffers (1, &VBO);     // Vertex Buffer Object
     
     
-    // Bind vertex objects to data =============================================
-    
-    // VAO (Vertex Buffer Object)
+    // Bind opengl vertex objects to data ======================================
     openGLContext.extensions.glBindVertexArray (VAO);
     
-    // VBO (Vertex Buffer Object) - Bind and Write to Buffer
+    // Fill VBO buffer with vertices array
     openGLContext.extensions.glBindBuffer (GL_ARRAY_BUFFER, VBO);
-    openGLContext.extensions.glBufferData (GL_ARRAY_BUFFER, sizeof (GLfloat) * vertices.size() * 3,
-                                           vertices.data(), GL_STATIC_DRAW);
+    openGLContext.extensions.glBufferData (GL_ARRAY_BUFFER,
+                                           sizeof (GLfloat) * vertices.size() * 3,
+                                           vertices.data(),
+                                           GL_STATIC_DRAW);
 
 
-    // Define how vertices are laid out
+    // Define that our vertices are laid out as groups of 3 GLfloats
     openGLContext.extensions.glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE,
                                                     3 * sizeof (GLfloat), NULL);
     openGLContext.extensions.glEnableVertexAttribArray (0);
     
-     // OpenGL styling preferences
-//    glEnable (GL_BLEND); // Enable alpha blending, allowing for transparency of objects
-//    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Show wireframe
+    
+    // Optional OpenGL styling commands ========================================
+    
+    // glEnable (GL_BLEND); // Enable alpha blending, allowing for transparency of objects
+    // glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); // Paired with above line
+    
+    // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); // Show wireframe
 }
 
-void OpenGLComponent::openGLContextClosing() {}
+void OpenGLComponent::openGLContextClosing()
+{
+    // Add any OpenGL related cleanup code here . . .
+}
 
 void OpenGLComponent::renderOpenGL()
 {
@@ -81,7 +89,7 @@ void OpenGLComponent::renderOpenGL()
     const float renderingScale = (float) openGLContext.getRenderingScale();
     glViewport (0, 0, roundToInt (renderingScale * getWidth()), roundToInt (renderingScale * getHeight()));
 
-    // Set background Color
+    // Set background color
     OpenGLHelpers::clear (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
 
     // Select shader program
@@ -96,14 +104,10 @@ void OpenGLComponent::renderOpenGL()
     // Draw Vertices
     openGLContext.extensions.glBindVertexArray (VAO);
     glDrawArrays (GL_TRIANGLES, 0, (int) vertices.size());
-
-//    // Reset the element buffers so child Components draw correctly
-//    openGLContext.extensions.glBindBuffer (GL_ARRAY_BUFFER, 0);
-//    openGLContext.extensions.glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, 0);
-//    openGLContext.extensions.glBindVertexArray (0);
+    openGLContext.extensions.glBindVertexArray (0);
 }
 
-// Component Callbacks =====================================================
+// JUCE Component Callbacks ====================================================
 void OpenGLComponent::paint (Graphics& g)
 {
     // You can optionally paint any JUCE graphics over the top of your OpenGL graphics
@@ -115,7 +119,6 @@ void OpenGLComponent::resized ()
     openGLStatusLabel.setBounds (getLocalBounds().reduced (4).removeFromTop (75));
 }
 
-
 void OpenGLComponent::mouseDown (const MouseEvent& e)
 {
     draggableOrientation.mouseDown (e.getPosition());
@@ -126,13 +129,12 @@ void OpenGLComponent::mouseDrag (const MouseEvent& e)
     draggableOrientation.mouseDrag (e.getPosition());
 }
 
-
-// AsyncUpdater Callback =======================================================
 void OpenGLComponent::handleAsyncUpdate()
 {
     openGLStatusLabel.setText (openGLStatusText, dontSendNotification);
 }
 
+// OpenGL Related Member Functions =============================================
 void OpenGLComponent::compileOpenGLShaderProgram()
 {
     std::unique_ptr<OpenGLShaderProgram> shaderProgramAttempt
@@ -147,7 +149,6 @@ void OpenGLComponent::compileOpenGLShaderProgram()
         viewMatrix.disconnectFromShaderProgram();
         
         shaderProgram.reset (shaderProgramAttempt.release());
-        shaderProgram->use();
         
         projectionMatrix.connectToShaderProgram (openGLContext, *shaderProgram);
         viewMatrix.connectToShaderProgram (openGLContext, *shaderProgram);
@@ -159,7 +160,7 @@ void OpenGLComponent::compileOpenGLShaderProgram()
         openGLStatusText = shaderProgramAttempt->getLastError();
     }
 
-    triggerAsyncUpdate();
+    triggerAsyncUpdate(); // Update status text
 }
 
 
