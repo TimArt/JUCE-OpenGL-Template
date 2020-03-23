@@ -3,7 +3,7 @@
 //  OpenGLAppTutorial - App
 //
 //  Created by Tim Arterbury on 3/21/20.
-//  Copyright © 2020 JUCE. All rights reserved.
+//  Copyright © 2020 TesserAct Music Technology LLC. All rights reserved.
 //
 
 #pragma once
@@ -25,8 +25,6 @@ public:
 
     OpenGLComponent();
     ~OpenGLComponent();
-    
-    void setRenderingActive (bool shouldContinuouslyRender);
     
     // OpenGLRenderer Callbacks ================================================
     void newOpenGLContextCreated() override;

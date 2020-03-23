@@ -1,13 +1,13 @@
-/*
-  ==============================================================================
-
-    This file was auto-generated and contains the startup code for a PIP.
-
-  ==============================================================================
-*/
+//
+//  Main.cpp
+//  OpenGLAppTutorial - App
+//
+//  Created by Tim Arterbury on 3/21/20.
+//  Copyright © 2020 TesserAct Music Technology LLC. All rights reserved.
+//
 
 #include <JuceHeader.h>
-#include "MainContentComponent.h"
+#include "MainContentComponent.hpp"
 
 class Application    : public JUCEApplication
 {

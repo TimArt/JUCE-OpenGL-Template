@@ -3,7 +3,7 @@
 //  OpenGLAppTutorial - App
 //
 //  Created by Tim Arterbury on 3/21/20.
-//  Copyright © 2020 JUCE. All rights reserved.
+//  Copyright © 2020 TesserAct Music Technology LLC. All rights reserved.
 //
 
 #include "OpenGLComponent.hpp"
@@ -20,6 +20,7 @@ OpenGLComponent::OpenGLComponent()
     // Attach the OpenGL context
     openGLContext.setRenderer (this);
     openGLContext.attachTo (*this);
+    openGLContext.setContinuousRepainting (true); // Enable rendering
 
     // Setup OpenGL GUI Overlay Label: Status of Shaders, compiler errors, etc.
     addAndMakeVisible (openGLStatusLabel);
@@ -31,12 +32,6 @@ OpenGLComponent::~OpenGLComponent()
 {
     openGLContext.setContinuousRepainting (false);
     openGLContext.detach();
-}
-
-void OpenGLComponent::setRenderingActive (bool shouldContinuouslyRender)
-{
-    openGLContext.setContinuousRepainting (shouldContinuouslyRender);
-    // openGLContext.setComponentPaintingEnabled (shouldContinuouslyRender);
 }
 
 // OpenGLRenderer Callbacks ================================================

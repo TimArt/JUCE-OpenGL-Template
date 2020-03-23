@@ -3,7 +3,7 @@
 //  OpenGLAppTutorial
 //
 //  Created by Tim Arterbury on 3/22/20.
-//  Copyright © 2020 JUCE. All rights reserved.
+//  Copyright © 2020 TesserAct Music Technology LLC. All rights reserved.
 //
 
 #pragma once
