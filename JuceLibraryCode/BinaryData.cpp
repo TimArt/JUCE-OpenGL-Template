@@ -9,6 +9,17 @@ namespace BinaryData
 
 //================== BasicFragment.glsl ==================
 static const unsigned char temp_binary_data_0[] =
+"/*\n"
+"    BasicFragment.glsl\n"
+"    OpenGL 3D App Template - App\n"
+" \n"
+"    Created by Tim Arterbury on 3/21/20.\n"
+"    Copyright 2020 TesserAct Music Technology LLC. All rights reserved.\n"
+" \n"
+"    Fragment Shader\n"
+"    This fragment shader simply colors all shape fragments with a purple color.\n"
+"*/\n"
+"\n"
 "#version 330 core\n"
 "out vec4 fragColor;\n"
 "\n"
@@ -21,6 +32,18 @@ const char* BasicFragment_glsl = (const char*) temp_binary_data_0;
 
 //================== BasicVertex.glsl ==================
 static const unsigned char temp_binary_data_1[] =
+"/*\n"
+"    BasicVertex.glsl\n"
+"    OpenGL 3D App Template - App\n"
+" \n"
+"    Created by Tim Arterbury on 3/21/20.\n"
+"    Copyright 2020 TesserAct Music Technology LLC. All rights reserved.\n"
+" \n"
+"    Vertex Shader\n"
+"    This vertex shader takes the object vertices and applies view and projection\n"
+"    based transformations to those vertices.\n"
+"*/\n"
+"\n"
 "#version 330 core\n"
 "layout (location = 0) in vec3 position;\n"
 "\n"
@@ -1202,8 +1225,8 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
 
     switch (hash)
     {
-        case 0xc2ac111f:  numBytes = 103; return BasicFragment_glsl;
-        case 0xa72632cb:  numBytes = 230; return BasicVertex_glsl;
+        case 0xc2ac111f:  numBytes = 383; return BasicFragment_glsl;
+        case 0xa72632cb:  numBytes = 552; return BasicVertex_glsl;
         case 0x754c69fd:  numBytes = 95000; return teapot_obj;
         default: break;
     }

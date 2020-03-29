@@ -24,6 +24,10 @@
 
     Just call load() and if there aren't any errors, the 'shapes' array should
     be filled with all the shape objects that were loaded from the file.
+ 
+    This utility was extracted from JUCE's OpenGL tutorial on their website:
+    https://docs.juce.com/master/tutorial_open_gl_application.html
+    It is included here as a library-like utility.
 */
 class WavefrontObjFile
 {

@@ -9,10 +9,10 @@
 namespace BinaryData
 {
     extern const char*   BasicFragment_glsl;
-    const int            BasicFragment_glslSize = 103;
+    const int            BasicFragment_glslSize = 383;
 
     extern const char*   BasicVertex_glsl;
-    const int            BasicVertex_glslSize = 230;
+    const int            BasicVertex_glslSize = 552;
 
     extern const char*   teapot_obj;
     const int            teapot_objSize = 95000;

@@ -3,15 +3,6 @@
 <JUCERPROJECT name="OpenGL 3D App Template" version="1.0.0" defines="" projectType="guiapp"
               id="mRAI3Y" jucerVersion="5.4.7" cppLanguageStandard="17">
   <MAINGROUP id="fC7mo8" name="OpenGL 3D App Template">
-    <GROUP id="{18DC88CC-D1EE-CEF6-63CF-5BD1C6F2004C}" name="Resources">
-      <GROUP id="{7D94A52D-6BA3-5B2A-7BDC-F3CCA158AB84}" name="OpenGLShaderPrograms">
-        <FILE id="YTMTEk" name="BasicFragment.glsl" compile="0" resource="1"
-              file="Resources/OpenGLShaderPrograms/BasicFragment.glsl"/>
-        <FILE id="GEBjWS" name="BasicVertex.glsl" compile="0" resource="1"
-              file="Resources/OpenGLShaderPrograms/BasicVertex.glsl"/>
-      </GROUP>
-      <FILE id="CrX0a5" name="teapot.obj" compile="0" resource="1" file="Resources/teapot.obj"/>
-    </GROUP>
     <GROUP id="{00668A9B-CAD9-31C8-50C1-A2B82CD8C252}" name="Source">
       <GROUP id="{FC60A5A8-08D5-7FE1-118D-E20B65CCB606}" name="OpenGLUtil">
         <FILE id="eXmwSY" name="OpenGLUtil.hpp" compile="0" resource="0" file="Source/OpenGLUtil/OpenGLUtil.hpp"/>
@@ -29,6 +20,16 @@
             file="Source/OpenGLComponent.hpp"/>
       <FILE id="wIF1qz" name="ShapeVertices.hpp" compile="0" resource="0"
             file="Source/ShapeVertices.hpp"/>
+    </GROUP>
+    <GROUP id="{18DC88CC-D1EE-CEF6-63CF-5BD1C6F2004C}" name="Resources">
+      <GROUP id="{F09FF352-7E5B-0280-CE4A-588AFF94FF09}" name="OpenGLShaderPrograms">
+        <FILE id="l5txia" name="BasicFragment.glsl" compile="0" resource="1"
+              file="Resources/OpenGLShaderPrograms/BasicFragment.glsl"/>
+        <FILE id="GAgZsR" name="BasicVertex.glsl" compile="0" resource="1"
+              file="Resources/OpenGLShaderPrograms/BasicVertex.glsl"/>
+      </GROUP>
+      <GROUP id="{7D94A52D-6BA3-5B2A-7BDC-F3CCA158AB84}" name="OpenGLShaderPrograms"/>
+      <FILE id="CrX0a5" name="teapot.obj" compile="0" resource="1" file="Resources/teapot.obj"/>
     </GROUP>
   </MAINGROUP>
   <MODULES>
@@ -56,36 +57,36 @@
         <MODULEPATH id="juce_opengl" path=""/>
       </MODULEPATHS>
     </XCODE_MAC>
-    <VS2017 targetFolder="Builds/VisualStudio2017">
+    <VS2019 targetFolder="Builds/VisualStudio2019">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OpenGLAppTutorial"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OpenGLAppTutorial"/>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path=""/>
-        <MODULEPATH id="juce_data_structures" path=""/>
-        <MODULEPATH id="juce_events" path=""/>
-        <MODULEPATH id="juce_graphics" path=""/>
-        <MODULEPATH id="juce_gui_basics" path=""/>
-        <MODULEPATH id="juce_gui_extra" path=""/>
-        <MODULEPATH id="juce_opengl" path=""/>
+        <MODULEPATH id="juce_opengl"/>
+        <MODULEPATH id="juce_gui_extra"/>
+        <MODULEPATH id="juce_gui_basics"/>
+        <MODULEPATH id="juce_graphics"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_core"/>
       </MODULEPATHS>
-    </VS2017>
-    <XCODE_IPHONE targetFolder="Builds/iOS">
+    </VS2019>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="OpenGLAppTutorial"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="OpenGLAppTutorial"/>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
-        <MODULEPATH id="juce_core" path=""/>
-        <MODULEPATH id="juce_data_structures" path=""/>
-        <MODULEPATH id="juce_events" path=""/>
-        <MODULEPATH id="juce_graphics" path=""/>
-        <MODULEPATH id="juce_gui_basics" path=""/>
-        <MODULEPATH id="juce_gui_extra" path=""/>
-        <MODULEPATH id="juce_opengl" path=""/>
+        <MODULEPATH id="juce_opengl"/>
+        <MODULEPATH id="juce_gui_extra"/>
+        <MODULEPATH id="juce_gui_basics"/>
+        <MODULEPATH id="juce_graphics"/>
+        <MODULEPATH id="juce_events"/>
+        <MODULEPATH id="juce_data_structures"/>
+        <MODULEPATH id="juce_core"/>
       </MODULEPATHS>
-    </XCODE_IPHONE>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
   <JUCEOPTIONS/>
   <LIVE_SETTINGS>

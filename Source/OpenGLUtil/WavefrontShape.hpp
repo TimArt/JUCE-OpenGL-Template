@@ -26,6 +26,10 @@
 
     This loads a 3D model from an OBJ file and converts it into some vertex buffers
     that we can draw.
+ 
+    This utility was extracted from JUCE's OpenGL tutorial on their website:
+    https://docs.juce.com/master/tutorial_open_gl_application.html
+    It is included here as a library-like utility.
 */
 struct Shape
 {
